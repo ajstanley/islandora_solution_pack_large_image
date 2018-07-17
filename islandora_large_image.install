@@ -76,10 +76,11 @@ function _islandora_large_image_install_has_kakadu() {
   $out = array();
   $ret = 1;
   $kdu_compress = variable_get('islandora_kakadu_url', 'kdu_compress');
-  $command = "command -v $kdu_compress >/dev/null 2>&1";
+  $escaped_kdu_compress = escapeshellarg($kdu_compress);
+  $command = "command -v $escaped_kdu_compress >/dev/null 2>&1";
 
   if (islandora_deployed_on_windows()) {
-    $command = "$kdu_compress >NUL 2>&1";
+    $command = "$escaped_kdu_compress >NUL 2>&1";
   }
 
   exec($command, $out, $ret);
